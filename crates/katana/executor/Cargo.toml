@@ -33,6 +33,7 @@ starknet-types-core = { version = "0.0.9", optional = true }
 [dev-dependencies]
 anyhow.workspace = true
 cairo-vm.workspace = true
+criterion.workspace = true
 katana-provider.workspace = true
 katana-rpc-types.workspace = true
 rstest.workspace = true
@@ -42,8 +43,13 @@ similar-asserts.workspace = true
 tokio.workspace = true
 
 [features]
+bench = [  ]
 default = [ "blockifier", "sir" ]
 
 blockifier = [ "dep:blockifier", "dep:cairo-vm" ]
 # native = [ "sir", "sir/cairo-native" ]
 sir = [ "dep:sir", "dep:starknet-types-core" ]
+
+[[bench]]
+harness = false
+name = "execution"
