@@ -8,6 +8,7 @@ use anyhow::{anyhow, Context};
 pub mod codecs;
 pub mod error;
 pub mod mdbx;
+pub mod migration;
 pub mod models;
 pub mod tables;
 pub mod utils;
@@ -32,6 +33,7 @@ pub fn init_db<P: AsRef<Path>>(path: P) -> anyhow::Result<DbEnv> {
     } else {
         match check_db_version(&path) {
             Ok(_) => {}
+
             Err(DatabaseVersionError::FileNotFound) => {
                 create_db_version_file(&path, CURRENT_DB_VERSION).with_context(|| {
                     format!(
@@ -40,6 +42,7 @@ pub fn init_db<P: AsRef<Path>>(path: P) -> anyhow::Result<DbEnv> {
                     )
                 })?
             }
+
             Err(err) => return Err(anyhow!(err)),
         }
     }
