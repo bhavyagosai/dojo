@@ -9,6 +9,11 @@ use crate::models::storage::ContractStorageEntry;
 use crate::models::storage::ContractStorageKey;
 use crate::{dupsort, tables};
 
+// TODO(kariy): maybe add database changelog ?
+//
+// Refer to:
+// - https://github.com/dojoengine/dojo/pull/1773
+// - https://github.com/dojoengine/dojo/pull/1774
 tables! {
     /// Contract nonce changes by block.
     NonceChanges: (BlockNumber, ContractAddress) => ContractNonceChange,
